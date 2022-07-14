@@ -3,6 +3,7 @@ import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page 
 
 import { employeesData, employeesGrid } from '../data/dummy';
 import { Header } from '../components';
+import Container from '../components/Container';
 
 const Employees = () => {
   const toolbarOptions = ['Search'];
@@ -10,6 +11,7 @@ const Employees = () => {
   const editing = { allowDeleting: true, allowEditing: true };
 
   return (
+    <Container>
       <Header category="Page" title="Employees" >
       <GridComponent
         dataSource={employeesData}
@@ -27,7 +29,8 @@ const Employees = () => {
         <Inject services={[Search, Page]} />
 
       </GridComponent>
-    </Header>
+      </Header>
+    </Container>
   );
 };
 export default Employees;
