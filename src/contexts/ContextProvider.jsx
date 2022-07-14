@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import {Provider as ReduxProvider} from 'react-redux'
-import store from '../redux/store'
+import store from '../redux/store/store'
 
 const StateContext = createContext();
 

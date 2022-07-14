@@ -484,6 +484,11 @@ export const links = [
     title: 'Pages',
     links: [
       {
+        name: 'groups',
+        icon: <IoMdContacts />,
+        path: "/staging/groups"
+      },
+      {
         name: 'orders',
         icon: <AiOutlineShoppingCart />,
       },
