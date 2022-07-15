@@ -1,6 +1,9 @@
-export { default as Ecommerce } from './Ecommerce';
-export { default as Orders } from './Orders';
-export { default as Employees } from './Employees';
-export { default as Customers } from './Customers';
-export { default as StagingGroups } from './staging/groups/Groups';
-
+export { default as Ecommerce } from "./Ecommerce";
+export { default as Orders } from "./Orders";
+export { default as Employees } from "./Employees";
+export { default as Customers } from "./Customers";
+export { default as StagingGroups } from "./staging/groups/Groups";
+export { default as StagingGroupInfo } from "./staging/groups/GroupInfo";
+export { default as StagingGroupMembers } from "./staging/groups/components/GroupMembers";
+export { default as StagingGroupAdmins } from "./staging/groups/components/GroupAdmins";
+export { default as StagingGroupReasons } from "./staging/groups/components/GroupReasons";
