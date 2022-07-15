@@ -481,7 +481,7 @@ export const links = [
   },
 
   {
-    title: 'Pages',
+    title: 'Staging',
     links: [
       {
         name: 'groups',
@@ -504,6 +504,16 @@ export const links = [
       {
         name: 'customers',
         icon: <RiContactsLine />,
+      },
+    ],
+  },
+  {
+    title: 'Production',
+    links: [
+      {
+        name: 'groups',
+        icon: <IoMdContacts />,
+        path: "/production/groups"
       },
     ],
   }

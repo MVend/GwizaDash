@@ -65,7 +65,7 @@ import dashboardStagging from './dashboardStaggingReducer';
 
 const rootReducer = combineReducers({
   auth,
-  groupsTableReducer,
+  groupsProduction: groupsTableReducer,
   addProductionMember,
   // production group tabs
   sharedBook,

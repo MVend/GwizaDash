@@ -8,3 +8,5 @@ export { default as StagingGroupMembers } from "./staging/groups/components/Grou
 export { default as StagingGroupAdmins } from "./staging/groups/components/GroupAdmins";
 export { default as StagingGroupReasons } from "./staging/groups/components/GroupReasons";
 export { default as StagingDashboard } from "./staging/dashboard";
+export { default as ProductionGroups } from './production/groups/groups/groups';
+export { default as ProductionGroupDetails} from './production/groups/groups/groupDetails';

@@ -3,10 +3,10 @@ import * as types from '../../../types/production/groups/tabs/get_member';
 const initialState = {
   isLoading: false,
   data: [],
-  currentPage: null,
-  totalPages: null,
-  totalItems: null,
-  itemsPerPage: null,
+  currentPage: 0,
+  totalPages: 0,
+  totalItems: 0,
+  itemsPerPage: 0,
   error: null
 };
 
@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
         isLoading: false,
         currentPage: payload.pagination.currentPage,
         totalPages: payload.pagination.numberOfPages,
-        totalItems: payload.pagination.total,
+        totalItems: payload.allGroups.length,
         itemsPerPage: payload.pagination.limit,
         data: payload.allGroups || [],
       };

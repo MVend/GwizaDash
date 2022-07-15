@@ -16,3 +16,4 @@ export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header.jsx';
 export { default as Drawer } from './Drawer.jsx';
 
+export {default as Card } from "./Card.jsx"

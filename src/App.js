@@ -4,7 +4,7 @@ import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
-import { Orders, Employees, Customers, StagingGroups, StagingGroupInfo, StagingDashboard, Ecommerce } from "./pages";
+import { Ecommerce, Orders, Employees, Customers, StagingGroups, ProductionGroups, ProductionGroupDetails, StagingGroupInfo, StagingDashboard } from "./pages";
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
@@ -83,6 +83,8 @@ const App = () => {
                 <Route exact path="/staging/dashboard" element={<StagingDashboard />} />
                 <Route exact path="/staging/groups" element={<StagingGroups />} />
                 <Route exact path="/staging/groups/:group_id" element={<StagingGroupInfo />} />
+                <Route exact path="/production/groups" element={<ProductionGroups />} />
+                <Route exact path="/production/groups/:group_id" element={<ProductionGroupDetails />} />
               </Routes>
             </div>
             <Footer />
