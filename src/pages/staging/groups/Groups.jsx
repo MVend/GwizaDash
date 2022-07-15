@@ -38,7 +38,7 @@ const Groups = ({ groupsStagging, findAllGroups, search, deleteHandler }) => {
 
   const [paginater, setPaginater] = useState({
     page: 0,
-    size: 5000,
+    size: 40,
   });
   useEffect(() => {
     findAllGroups(paginater);

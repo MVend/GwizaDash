@@ -15,7 +15,7 @@ export const findAll = (data) => async (dispatch) => {
   try {
     dispatch(creator(GET_ADMINS_START));
     const res = await HttpRequest.get(
-      `/admins?group_id=${data.group_id}&page=${data.page}&size=${data.size}`
+      `/staging/api/admins?group_id=${data.group_id}&page=${data.page}&size=${data.size}`
     );
     dispatch(creator(GET_ADMINS_SUCCESS, res.data));
   } catch (e) {
@@ -29,7 +29,7 @@ export const findAll = (data) => async (dispatch) => {
 export const create = (data) => async (dispatch) => {
   try {
     dispatch(creator(CREATE_ADMIN_START));
-    const res = await HttpRequest.post('/admins', data.payload);
+    const res = await HttpRequest.post('/staging/api/admins', data.payload);
     toast.success(res.message);
     data.id = res.data.id;
     dispatch(creator(CREATE_ADMIN_SUCCESS, data));
@@ -43,7 +43,7 @@ export const create = (data) => async (dispatch) => {
 
 export const remove = (admin_id) => async (dispatch) => {
   try {
-    const res = await HttpRequest.delete(`/admins/${admin_id}`);
+    const res = await HttpRequest.delete(`/staging/api/admins/${admin_id}`);
     toast.success(res.message);
     dispatch(creator(DELETE_ADMIN_SUCCESS, admin_id));
   } catch (e) {
