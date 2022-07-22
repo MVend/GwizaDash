@@ -61,7 +61,7 @@ const GroupInfo = ({
   const adminsTab = () => <StagingGroupAdmins />;
   const reasonsTab = () => <StagingGroupReasons />;
   return (
-    <Header category="Staging" title={`Groups/${group?.group_name || ""}`}>
+    <Header category={`Staging - Groups - ${group?.group_name || ""}`}>
       <div>
         <div className="e-card mb-5">
           <div className="e-card-header">

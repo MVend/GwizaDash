@@ -7,3 +7,4 @@ export { default as StagingGroupInfo } from "./staging/groups/GroupInfo";
 export { default as StagingGroupMembers } from "./staging/groups/components/GroupMembers";
 export { default as StagingGroupAdmins } from "./staging/groups/components/GroupAdmins";
 export { default as StagingGroupReasons } from "./staging/groups/components/GroupReasons";
+export { default as StagingDashboard } from "./staging/dashboard";

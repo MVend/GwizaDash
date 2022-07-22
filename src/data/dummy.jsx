@@ -489,6 +489,11 @@ export const links = [
         path: "/staging/groups"
       },
       {
+        name: 'dashboard',
+        icon: <IoMdContacts />,
+        path: "/staging/dashboard"
+      },
+      {
         name: 'orders',
         icon: <AiOutlineShoppingCart />,
       },
@@ -3132,14 +3137,14 @@ export const stackedCustomSeries = [
 
   },
 
-  { dataSource: stackedChartData[1],
-    xName: 'x',
-    yName: 'y',
-    name: 'Expense',
-    type: 'StackingColumn',
-    background: 'red',
+  // { dataSource: stackedChartData[1],
+  //   xName: 'x',
+  //   yName: 'y',
+  //   name: 'Expense',
+  //   type: 'StackingColumn',
+  //   background: 'red',
 
-  },
+  // },
 
 ];
 
