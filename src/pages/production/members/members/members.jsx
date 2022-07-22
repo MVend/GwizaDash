@@ -10,25 +10,22 @@ import {
   Filter,
   Group,
   Sort,
-  Toolbar,
 } from "@syncfusion/ej2-react-grids";
 
 
 import {
-  deleteGroup,
+  deleteMember,
   findAll,
   search,
-} from "../../../../redux/actions/production/groups";
-import { groupsHeader } from "../components/TableHeaders";
+} from "../../../../redux/actions/production/members";
+import { membersHeader } from "../components/TableHeaders";
 import { getLoggedUserInfo } from "../../../../utils/helpers";
 import { connect } from "react-redux";
-import { Drawer, Header } from "../../../../components";
-import { useStateContext } from "../../../../contexts/ContextProvider";
+import { Header } from "../../../../components";
 
-const Groups = ({ groupsProduction, findAllGroups, search, deleteHandler }) => {
-  const toolbarOptions = ["Add", "Search"];
-  const editing = { allowDeleting: true, allowEditing: true, allowAdding: true };
-  const { drawer, setDrawer } = useStateContext()
+const Members = ({ membersTableReducer, findAllMembers, search, deleteHandler }) => {
+  const toolbarOptions = ["Search"];
+  const editing = { allowDeleting: true, allowEditing: true };
   // Existing implementations start
   const [isEdit, setIsEdit] = useState(false);
   const [group, setGroup] = useState();
@@ -41,23 +38,23 @@ const Groups = ({ groupsProduction, findAllGroups, search, deleteHandler }) => {
     totalItems, 
     currentPage, 
     totalPages ,
-  } = groupsProduction;
+  } = membersTableReducer;
 
   const [paginater, setPaginater] = useState({
     page: 0,
     size: 5000,
   });
   useEffect(() => {
-    findAllGroups(paginater);
+    findAllMembers(paginater);
   }, []);
 
   const navigation = useNavigate();
   // useEffect(() => {
-  //   findAllGroups(paginater);
+  //   findAllMembers(paginater);
   // }, [paginater]);
 
   // useEffect(() => {
-  //   if (searchHint === "") return findAllGroups(paginater);
+  //   if (searchHint === "") return findAllMembers(paginater);
   // }, [searchHint]);
 
   const handleEdit = (row) => {
@@ -67,7 +64,7 @@ const Groups = ({ groupsProduction, findAllGroups, search, deleteHandler }) => {
   };
   const handleView = (row) => {
     console.log("edit::::::::::;", row)
-    navigation(`/production/groups/${row.group_id}`, {replace:true, state:{row}})
+    navigation(`/production/members/${row.member_id}`, {replace:true, state:{row}})
     setGroup(row);
   };
 
@@ -94,45 +91,31 @@ const Groups = ({ groupsProduction, findAllGroups, search, deleteHandler }) => {
       }))
     : [];
 
-  const handleCreateGroup = (e) => {
-    if (e?.item?.id === "productionGroup_add") {
-      setDrawer(true);
-    }
-  };
-
   return (
-    <Header  category="Groups">
-      {drawer && (
-        <Drawer
-         title="Add New Group">
-          {/* <GroupForm /> */}
-        </Drawer>
-      )}
+    <Header  category="Members">
       <GridComponent
         dataSource={dataSource}
-        id="productionGroup"
         width="auto"
         allowPaging
         allowSorting
         pageSettings={{ pageCount: 5 }}
         editSettings={editing}
         toolbar={toolbarOptions}
-        toolbarClick={handleCreateGroup}
       >
         <ColumnsDirective>
-          {groupsHeader.map((item, index) => (
+          {membersHeader.map((item, index) => (
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
-        <Inject services={[Search, Page, Toolbar]} />
+        <Inject services={[Search, Page]} />
       </GridComponent>
     </Header>
   );
 };
 
-const mapState = ({ groupsProduction }) => ({ groupsProduction });
+const mapState = ({ membersTableReducer }) => ({ membersTableReducer });
 export default connect(mapState, {
-  findAllGroups: findAll,
+  findAllMembers: findAll,
   search,
-  deleteHandler: deleteGroup,
-})(Groups);
+  deleteHandler: deleteMember,
+})(Members);

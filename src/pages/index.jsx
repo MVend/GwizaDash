@@ -10,3 +10,5 @@ export { default as StagingGroupReasons } from "./staging/groups/components/Grou
 export { default as StagingDashboard } from "./staging/dashboard";
 export { default as ProductionGroups } from './production/groups/groups/groups';
 export { default as ProductionGroupDetails} from './production/groups/groups/groupDetails';
+export {default as ProductionMembers } from './production/members/members/members';
+export {default as MemberDetails } from './production/members/members/memberDetails';

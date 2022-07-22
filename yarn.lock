@@ -2275,6 +2275,15 @@
     "@syncfusion/ej2-react-base" "~19.4.55"
     "@syncfusion/ej2-schedule" "19.4.55"
 
+"@syncfusion/ej2-react-splitbuttons@^20.2.38":
+  version "20.2.38"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-splitbuttons/-/ej2-react-splitbuttons-20.2.38.tgz#7c03f83692170a99e0810f561c0e99d22324cb33"
+  integrity sha512-cGsQtUIKC5nKQKIuV6N/lqzWQAq9UE9+VsWa+ofDh8YkU2S+ZK/HAiUPc97qiMIj1I7Jk9ZArXGxQfLCX+f5Ww==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.2.38"
+    "@syncfusion/ej2-react-base" "~20.2.38"
+    "@syncfusion/ej2-splitbuttons" "20.2.38"
+
 "@syncfusion/ej2-richtexteditor@19.4.56", "@syncfusion/ej2-richtexteditor@~19.4.52", "@syncfusion/ej2-richtexteditor@~19.4.56":
   version "19.4.56"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-richtexteditor/-/ej2-richtexteditor-19.4.56.tgz#5df8b99fe0495dd13313d0aae8448af9cf0a85c1"
@@ -2304,6 +2313,14 @@
     "@syncfusion/ej2-navigations" "~19.4.55"
     "@syncfusion/ej2-popups" "~19.4.53"
 
+"@syncfusion/ej2-splitbuttons@20.2.38", "@syncfusion/ej2-splitbuttons@~20.2.38":
+  version "20.2.38"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-splitbuttons/-/ej2-splitbuttons-20.2.38.tgz#7a4a9556f0e699004b695747c4060bffeecbe2be"
+  integrity sha512-vjH97v185gKplAzlm8D/3dHncHL+ZSPsC1fXK4k9qMisnaiU1RvSlsCTj129u2zaYjQv5WqCTpNXaKDkrOEmQw==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.2.38"
+    "@syncfusion/ej2-popups" "~20.2.38"
+
 "@syncfusion/ej2-splitbuttons@~19.4.52":
   version "19.4.52"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-splitbuttons/-/ej2-splitbuttons-19.4.52.tgz#3b19cba2edb52d73b180936bde9c7902277e627f"
@@ -2311,14 +2328,6 @@
   dependencies:
     "@syncfusion/ej2-base" "~19.4.52"
     "@syncfusion/ej2-popups" "~19.4.52"
-
-"@syncfusion/ej2-splitbuttons@~20.2.38":
-  version "20.2.38"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-splitbuttons/-/ej2-splitbuttons-20.2.38.tgz#7a4a9556f0e699004b695747c4060bffeecbe2be"
-  integrity sha512-vjH97v185gKplAzlm8D/3dHncHL+ZSPsC1fXK4k9qMisnaiU1RvSlsCTj129u2zaYjQv5WqCTpNXaKDkrOEmQw==
-  dependencies:
-    "@syncfusion/ej2-base" "~20.2.38"
-    "@syncfusion/ej2-popups" "~20.2.38"
 
 "@syncfusion/ej2-spreadsheet@~19.4.56":
   version "19.4.56"

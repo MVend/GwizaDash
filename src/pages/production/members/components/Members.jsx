@@ -12,19 +12,20 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import {
   findAll,
-  deleteGroup,
-} from "../../../../redux/actions/production/groups";
-import { adminsHeader } from "./TableHeaders";
+  search,
+} from "../../../../redux/actions/membersStaggingActions";
+import { membersHeader } from "./TableHeaders";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getLoggedUserInfo } from "../../../../utils/helpers";
 
-const ProductionGroupAdmins = ({ adminProduction, findAll, deleteGroup }) => {
+const ProductionMembers = ({ membersTableReducer, findAll, search }) => {
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
 
   // Existing implementations start
-  const { access_level } = getLoggedUserInfo();
+  const [isEdit, setIsEdit] = useState(false);
+  const [member, setMember] = useState();
+  const [searchHint, setSearchHint] = useState("");
   const [paginater, setPaginater] = useState({
     page: 0,
     size: 1000,
@@ -32,7 +33,7 @@ const ProductionGroupAdmins = ({ adminProduction, findAll, deleteGroup }) => {
   const {
     isLoading,
     values: { rows, totalItems },
-  } = adminProduction;
+  } = membersTableReducer;
   const group = useParams();
 
   const data = {
@@ -44,20 +45,30 @@ const ProductionGroupAdmins = ({ adminProduction, findAll, deleteGroup }) => {
     findAll(data);
   }, []);
 
-  const deleteAdmin = (admin_id) => {
-    const confirmed = window.confirm("Are you sure? This cannot be undone");
-    if (confirmed) return deleteGroup(admin_id);
+  // useEffect(() => {
+  //   if (searchHint === "") return findAll(data);
+  // }, [searchHint]);
+
+  const handleEdit = (row) => {
+    setIsEdit(true);
+    setMember(row);
   };
 
-  const isNotEmpty = !(!isLoading && totalItems < 1);
+  const handleSearch = () => search({ ...data, searchHint });
+
   // Existing implementations end
-  console.log('=============dataSource)=======================');
-console.log(rows);
-console.log('============dataSource)========================');
+
+  const dataSource =
+    !isLoading && totalItems > 0
+      ? rows?.map((row) => ({
+          ...row,
+          name: row.first_name || "" + " " + row.last_name || "",
+        }))
+      : [];
 
   return (
     <GridComponent
-      dataSource={rows}
+      dataSource={dataSource}
       width="auto"
       allowPaging
       allowSorting
@@ -66,7 +77,7 @@ console.log('============dataSource)========================');
       toolbar={toolbarOptions}
     >
       <ColumnsDirective>
-        {adminsHeader.map((item, index) => (
+        {membersHeader.map((item, index) => (
           <ColumnDirective key={index} {...item} />
         ))}
       </ColumnsDirective>
@@ -75,8 +86,7 @@ console.log('============dataSource)========================');
   );
 };
 
-const mapState = ({ adminProduction }) => ({ adminProduction });
+const mapState = ({ membersTableReducer }) => ({ membersTableReducer });
 export default connect(mapState, {
   findAll,
-  deleteGroup,
-})(ProductionGroupAdmins);
+})(ProductionMembers);

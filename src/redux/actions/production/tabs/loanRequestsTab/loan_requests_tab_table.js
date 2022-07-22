@@ -15,7 +15,7 @@ function sleep(ms) {
 export const findLoanRequestsTabActions = ({ group_id, paginater }) => async (dispatch) => {
   dispatch(creator(GET_LOAN_REQUESTS_PRODUCTION_TAB_START, true));
   try {
-    const res = await HttpRequest.get(`/api/loanrequests/bygroupid/${group_id}`);
+    const res = await HttpRequest.get(`/loanrequests/bygroupid/${group_id}`);
     dispatch(creator(GET_LOAN_REQUESTS_PRODUCTION_TAB_SUCCESS, res));
   } catch (e) {
     if (e.response && e.response.data) {

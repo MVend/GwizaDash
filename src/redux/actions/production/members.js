@@ -23,7 +23,7 @@ function sleep(ms) {
 }
 
 
-export const findAllProductionMembers = (data) => async (dispatch) => {
+export const findAll = (data) => async (dispatch) => {
   dispatch(creator(GET_PRODUCTION_MEMBERS_START, true));
   try {
     const res = await HttpRequest.get(`/members/members?offset=${data.page}&limit=${data.size}`);
@@ -71,7 +71,7 @@ export const updateMember = (data, member_id) => async (dispatch) => {
     dispatch(creator(UPDATE_PRODUCTION_MEMBER_SUCCESS, res.data));
   } catch (e) {
     if (e.response && e.response.data) {
-      dispatch(creator(CREATE_MEMBER_ERROR, e.response.data.error));
+      dispatch(creator(CREATE_PRODUCTION_MEMBER_ERROR, e.response.data.error));
       return toast.error(e.response.data.error);
     }
   }
@@ -83,12 +83,27 @@ export const upload = (data) => async (dispatch) => {
     await HttpRequest.post('/members/groups/upload/', data);
 
     const res = await HttpRequest.get('/members/groups?page=0&size=1000');
-    dispatch(creator(GET_PRODUCTION_GROUPS, res.data));
+    dispatch(creator(GET_PRODUCTION_MEMBERS_SUCCESS, res.data));
     dispatch(creator(UPLOAD_PRODUCTION_MEMBERS_SUCCESS, []));
   } catch (e) {
     if (e.response && e.response.data) {
       dispatch(creator(CREATE_PRODUCTION_MEMBER_ERROR, e.response.data.error));
       // return message.error(e.response.data.error);
+    }
+  }
+};
+
+export const search = (data) => async (dispatch) => {
+  try {
+    dispatch(creator(GET_PRODUCTION_MEMBERS_START, true));
+    const res = await HttpRequest.get(
+      `/members/members/search?searchHint=${data.searchHint}&page=${data.page}&size=${data.size}`,
+    );
+    dispatch(creator(GET_PRODUCTION_MEMBERS_SUCCESS, res.data));
+  } catch (e) {
+    if (e.response && e.response.data) {
+      dispatch(creator(GET_PRODUCTION_MEMBERS_ERROR, e.response.data.error));
+      return toast.error(e.response.data.error);
     }
   }
 };

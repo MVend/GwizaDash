@@ -15,5 +15,5 @@ export { default as Pie } from './Charts/Pie';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header.jsx';
 export { default as Drawer } from './Drawer.jsx';
-
-export {default as Card } from "./Card.jsx"
+export {default as Dropdown } from './Dropdown';
+export {default as Card } from "./Card.jsx";

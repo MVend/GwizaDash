@@ -10,13 +10,14 @@ import {
   Group,
   Sort,
 } from "@syncfusion/ej2-react-grids";
-import { findAll } from "../../../../redux/actions/reasonsStaggingActions";
-import { reasonsHeader } from "./TableHeaders";
+import { findFinesReasonsProductionActions } from "../../../../redux/actions/production/tabs/settings/finesReasons/fines_reasons_table";
+import { findSocialFundsReasonsProductionTabActions } from "../../../../redux/actions/production/tabs/settings/socialFundsReasons/social_funds_reasons";
+import { fineReasonsHeader, reasonsHeader, socialFundsReasonsHeader } from "./TableHeaders";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getLoggedUserInfo } from "../../../../utils/helpers";
 
-const ProductionGroupReasons = ({ reasonsStagging, findAll }) => {
+const ProductionGroupReasons = ({ getFineReasons, socialFundsReasonsTable, findFinesReasonsProductionActions, findSocialFundsReasonsProductionTabActions, settingContent, setSettingContent }) => {
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
 
@@ -31,8 +32,14 @@ const ProductionGroupReasons = ({ reasonsStagging, findAll }) => {
   });
   const {
     isLoading,
-    values: { rows, totalItems },
-  } = reasonsStagging;
+    data,
+    totalItems,
+  } = getFineReasons;
+  const {
+    isLoading: loading,
+    data: resData,
+    totalItems: allItems,
+  } = socialFundsReasonsTable;
   const group = useParams();
 
   useEffect(() => {
@@ -40,7 +47,8 @@ const ProductionGroupReasons = ({ reasonsStagging, findAll }) => {
       ...paginater,
       ...group,
     };
-    findAll(data);
+    findFinesReasonsProductionActions(data);
+    findSocialFundsReasonsProductionTabActions(data);
   }, []);
 
   const handleEdit = (row) => {
@@ -48,57 +56,61 @@ const ProductionGroupReasons = ({ reasonsStagging, findAll }) => {
     setReason(row);
   };
 
-  const fines = rows?.filter((val) => val?.reason_type === "fine") || [];
-  const socialFunds =
-    rows?.filter((val) => val?.reason_type === "social fund") || [];
-  // Existing implementations end
+  const fines = data.data;
+  const socialFunds = resData
 
   return (
-    <div class="flex">
-      <div class="flex-auto w-32 pr-5">
-        <h2>Fines</h2>
-        <GridComponent
-          dataSource={fines}
-          width="auto"
-          allowPaging
-          allowSorting
-          pageSettings={{ pageCount: 5 }}
-          editSettings={editing}
-          toolbar={toolbarOptions}
-        >
-          <ColumnsDirective>
-            {reasonsHeader.map((item, index) => (
-              <ColumnDirective key={index} {...item} />
-            ))}
-          </ColumnsDirective>
-          <Inject services={[Search, Page]} />
-        </GridComponent>
-      </div>
+    <div class="flex flex-col">
+      {settingContent.reason.fines && (
+        <div>
+          <h1>Fine Reasons</h1>
+          <GridComponent
+            dataSource={fines}
+            width="auto"
+            allowPaging
+            allowSorting
+            pageSettings={{ pageCount: 5 }}
+            editSettings={editing}
+            toolbar={toolbarOptions}
+          >
+            <ColumnsDirective>
+              {fineReasonsHeader.map((item, index) => (
+                <ColumnDirective key={index} {...item} />
+              ))}
+            </ColumnsDirective>
+            <Inject services={[Search, Page]} />
+          </GridComponent>
+        </div>
 
-      <div class="flex-auto w-32 pl-5">
-        <h2>Socialfund </h2>
-        <GridComponent
-          dataSource={socialFunds}
-          width="auto"
-          allowPaging
-          allowSorting
-          pageSettings={{ pageCount: 5 }}
-          editSettings={editing}
-          toolbar={toolbarOptions}
-        >
-          <ColumnsDirective>
-            {reasonsHeader.map((item, index) => (
-              <ColumnDirective key={index} {...item} />
-            ))}
-          </ColumnsDirective>
-          <Inject services={[Search, Page]} />
-        </GridComponent>
-      </div>
+      )}
+      {settingContent.reason.funds && (
+        <div>
+          <h1>Social Fund Reasons </h1>
+          <GridComponent
+            dataSource={socialFunds}
+            width="auto"
+            allowPaging
+            allowSorting
+            pageSettings={{ pageCount: 5 }}
+            editSettings={editing}
+            toolbar={toolbarOptions}
+          >
+            <ColumnsDirective>
+              {socialFundsReasonsHeader.map((item, index) => (
+                <ColumnDirective key={index} {...item} />
+              ))}
+            </ColumnsDirective>
+            <Inject services={[Search, Page]} />
+          </GridComponent>
+        </div>
+
+      )}
     </div>
   );
 };
 
-const mapState = ({ reasonsStagging }) => ({ reasonsStagging });
+const mapState = ({ getFineReasons, socialFundsReasonsTable }) => ({ getFineReasons, socialFundsReasonsTable });
 export default connect(mapState, {
-  findAll,
+  findFinesReasonsProductionActions,
+  findSocialFundsReasonsProductionTabActions
 })(ProductionGroupReasons);

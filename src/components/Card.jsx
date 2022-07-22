@@ -1,6 +1,5 @@
 const Card = (props) => {
     const group = props
-    console.log(':::::', group)
     return (
         <div>
             <div className="e-card mb-5">
@@ -39,14 +38,8 @@ const Card = (props) => {
                     <strong>Meeting Time:</strong> {group?.day_of_meeting}{" "}
                     {group?.meeting_time}
                     </div>
-
-                    {/* <div className="p-2">
-                    <strong>Location:</strong>{" "}
-                    {group?.location &&
-                        `${group?.location.district_name} - ${group?.location.sector_name}`}
-                    </div> */}
                     <div className="p-2">
-                    <strong>Approvals:</strong> {group?.totalItems}
+                    <strong>Approvals:</strong> {group?.no_of_approvers}
                     </div>
                 </div>
                 <div className="flex-auto w-32">
