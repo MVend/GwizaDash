@@ -61,7 +61,7 @@ const GroupInfo = ({
   const adminsTab = () => <StagingGroupAdmins />;
   const reasonsTab = () => <StagingGroupReasons />;
   return (
-    <Header category="Staging" title={`Groups/${group?.group_name || ""}`}>
+    <Header category={`Staging - Groups - ${group?.group_name || ""}`}>
       <div>
         <div className="e-card mb-5">
           <div className="e-card-header">
@@ -86,7 +86,9 @@ const GroupInfo = ({
 
                 <div className="p-2">
                   <strong>Status:</strong>{" "}
-                  {group?.group_status && group?.group_status.toUpperCase()}
+                  <span className={group?.group_status === 'migrated' ? "e-badge e-badge-success" : "e-badge e-badge-info"}>
+                    {group?.group_status && group?.group_status.toUpperCase()}
+                  </span>
                 </div>
               </div>
               <div className="flex-auto w-32">
@@ -111,16 +113,16 @@ const GroupInfo = ({
               </div>
               <div className="flex-auto w-32">
                 <div className="p-2">
-                  <strong>Share value:</strong> {group?.share_value}
+                  <strong>Share value:</strong> {new Intl.NumberFormat('en-IN').format(group?.share_value)}
                 </div>
 
                 <div className="p-2">
                   <strong>Social fund amount:</strong>{" "}
-                  {group?.socialfund_amount}
+                  {new Intl.NumberFormat('en-IN').format(group?.socialfund_amount)}
                 </div>
 
                 <div className="p-2">
-                  <strong>Max Weekly Share:</strong> {group?.max_weekly_shares}
+                  <strong>Max Weekly Share:</strong> {new Intl.NumberFormat('en-IN').format(group?.max_weekly_shares)}
                 </div>
               </div>
 

@@ -3,7 +3,7 @@ import { AccumulationChartComponent, AccumulationSeriesCollectionDirective, Accu
 
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const Doughnut = ({ id, data, legendVisiblity, height }) => {
+const Doughnut = ({ id, data, legendVisiblity, height, title }) => {
   const { currentMode } = useStateContext();
 
   return (
@@ -17,11 +17,10 @@ const Doughnut = ({ id, data, legendVisiblity, height }) => {
       <Inject services={[AccumulationLegend, PieSeries, AccumulationDataLabel, AccumulationTooltip]} />
       <AccumulationSeriesCollectionDirective>
         <AccumulationSeriesDirective
-          name="Sale"
+          name={title}
           dataSource={data}
           xName="x"
           yName="y"
-          innerRadius="40%"
           startAngle={0}
           endAngle={360}
           radius="70%"

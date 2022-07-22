@@ -7,12 +7,13 @@ import {
   Search,
   Page,
   Filter,
+  Toolbar,
   Group,
   Sort,
 } from "@syncfusion/ej2-react-grids";
 
 import { employeesData, employeesGrid } from "../../../data/dummy";
-import { Header } from "../../../components";
+import { Drawer, Header } from "../../../components";
 import {
   deleteGroup,
   findAll,
@@ -21,16 +22,24 @@ import {
 import { groupsHeader } from "./components/TableHeaders";
 import { getLoggedUserInfo } from "../../../utils/helpers";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router";
+import { useStateContext } from "../../../contexts/ContextProvider";
+import GroupForm from "./components/GroupForm";
 
-const Groups = ({ groupsStagging, findAllGroups, search, deleteHandler }) => {
-  const toolbarOptions = ["Search"];
-  const editing = { allowDeleting: true, allowEditing: true };
-  // Existing implementations start
-  const [isEdit, setIsEdit] = useState(false);
-  const [group, setGroup] = useState();
-  const [searchHint, setSearchHint] = useState("");
+const Groups = ({ groupsStagging, findAllGroups }) => {
   const { access_level } = getLoggedUserInfo();
-  const [visible, setVisible] = useState(false);
+  const toolbarOptions = +access_level === 2  ? ["Add", "Search"] : ['Search'];
+
+  const navigation = useNavigate();
+  const { drawer, setDrawer } = useStateContext();
+
+
+  const editing = {
+    allowDeleting: true,
+    allowAdding: true,
+    allowEditing: true,
+  };
+  // Existing implementations start
   const {
     isLoading,
     values: { rows, totalItems, currentPage, totalPages },
@@ -44,31 +53,17 @@ const Groups = ({ groupsStagging, findAllGroups, search, deleteHandler }) => {
     findAllGroups(paginater);
   }, []);
 
-  // useEffect(() => {
-  //   findAllGroups(paginater);
-  // }, [paginater]);
-
-  // useEffect(() => {
-  //   if (searchHint === "") return findAllGroups(paginater);
-  // }, [searchHint]);
+  const handleView = (row) => {
+    navigation(`/staging/groups/${row?.group_id}`, {
+      replace: false,
+      state: { row },
+    });
+  };
 
   const handleEdit = (row) => {
-    setIsEdit(true);
-    setGroup(row);
+    setDrawer(true);
   };
 
-  const handleSearch = () => search({ ...paginater, searchHint });
-
-  const showDrawer = () => setVisible(true);
-  const closeDrawer = () => setVisible(false);
-
-  const newUploadHandler = () => {
-    showDrawer();
-  };
-
-  const handleDelete = (row) => {
-    deleteHandler(row.group_id);
-  };
   // Existing implementations end
 
   const dataSource =
@@ -82,18 +77,35 @@ const Groups = ({ groupsStagging, findAllGroups, search, deleteHandler }) => {
           time_of_meeting: `${row?.day_of_meeting || ""} - ${
             row?.time_of_meeting || ""
           }`,
+          handleView: () => handleView(row),
+          handleEdit: () => handleEdit(row),
+          access_level
         }))
       : [];
 
+  const clickHandler = (e) => {
+    if (e?.item?.id === "StagingGroupsGrid_add") {
+      setDrawer(true);
+    }
+  };
+
   return (
-    <Header category="Staging" title="Groups">
+    <Header category="Staging - Groups">
+      {drawer && (
+        <Drawer title="New Group">
+          <GroupForm />
+        </Drawer>
+      )}
       <GridComponent
         dataSource={dataSource}
+        id="StagingGroupsGrid"
         width="auto"
         allowPaging
         allowSorting
+        allowMultiSorting
         pageSettings={{ pageCount: 5 }}
         editSettings={editing}
+        toolbarClick={clickHandler}
         toolbar={toolbarOptions}
       >
         <ColumnsDirective>
@@ -101,7 +113,7 @@ const Groups = ({ groupsStagging, findAllGroups, search, deleteHandler }) => {
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
-        <Inject services={[Search, Page]} />
+        <Inject services={[Search, Page, Toolbar]} />
       </GridComponent>
     </Header>
   );
