@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
 import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
-import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
+import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft, BsSpeedometer } from 'react-icons/bs';
 import { BiColorFill } from 'react-icons/bi';
 import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine, RiStockLine } from 'react-icons/ri';
@@ -471,34 +471,27 @@ export const employeesGrid = [
 
 export const links = [
   {
-    title: 'Dashboard',
+    title: 'Production',
     links: [
       {
-        name: 'ecommerce',
-        icon: <FiShoppingBag />,
+        name: 'dashboard',
+        icon: <BsSpeedometer />,
       },
     ],
   },
 
   {
-    title: 'Pages',
+    title: 'Staging',
     links: [
+      {
+        name: 'dashboard',
+        icon: <BsSpeedometer />,
+        path: "/staging/dashboard"
+      },
       {
         name: 'groups',
         icon: <IoMdContacts />,
         path: "/staging/groups"
-      },
-      {
-        name: 'orders',
-        icon: <AiOutlineShoppingCart />,
-      },
-      {
-        name: 'employees',
-        icon: <IoMdContacts />,
-      },
-      {
-        name: 'customers',
-        icon: <RiContactsLine />,
       },
     ],
   }
@@ -3132,14 +3125,14 @@ export const stackedCustomSeries = [
 
   },
 
-  { dataSource: stackedChartData[1],
-    xName: 'x',
-    yName: 'y',
-    name: 'Expense',
-    type: 'StackingColumn',
-    background: 'red',
+  // { dataSource: stackedChartData[1],
+  //   xName: 'x',
+  //   yName: 'y',
+  //   name: 'Expense',
+  //   type: 'StackingColumn',
+  //   background: 'red',
 
-  },
+  // },
 
 ];
 

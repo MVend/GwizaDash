@@ -8,24 +8,29 @@ import {
   Page,
   Filter,
   Group,
-  Sort,
+  Toolbar,
 } from "@syncfusion/ej2-react-grids";
 import {
   findAll,
-  search,
 } from "../../../../redux/actions/membersStaggingActions";
 import { membersHeader } from "./TableHeaders";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Drawer } from "../../../../components";
+import MemberForm from "./MemberForm";
+import { useStateContext } from "../../../../contexts/ContextProvider";
+import { getLoggedUserInfo } from "../../../../utils/helpers";
 
-const GroupMembers = ({ membersStagging, findAll, search }) => {
-  const toolbarOptions = ["Search"];
-  const editing = { allowDeleting: true, allowEditing: true };
+const GroupMembers = ({ membersStagging, findAll }) => {
+  const { access_level } = getLoggedUserInfo();
+  const toolbarOptions = +access_level === 2  ? ["Add", "Search"] : ['Search'];
+  const editing = {
+    allowDeleting: true,
+    allowAdding: true,
+    allowEditing: true,
+  };
 
   // Existing implementations start
-  const [isEdit, setIsEdit] = useState(false);
-  const [member, setMember] = useState();
-  const [searchHint, setSearchHint] = useState("");
   const [paginater, setPaginater] = useState({
     page: 0,
     size: 1000,
@@ -35,6 +40,7 @@ const GroupMembers = ({ membersStagging, findAll, search }) => {
     values: { rows, totalItems },
   } = membersStagging;
   const group = useParams();
+  const { drawer, setDrawer } = useStateContext();
 
   const data = {
     ...paginater,
@@ -44,17 +50,6 @@ const GroupMembers = ({ membersStagging, findAll, search }) => {
   useEffect(() => {
     findAll(data);
   }, []);
-
-  // useEffect(() => {
-  //   if (searchHint === "") return findAll(data);
-  // }, [searchHint]);
-
-  const handleEdit = (row) => {
-    setIsEdit(true);
-    setMember(row);
-  };
-
-  const handleSearch = () => search({ ...data, searchHint });
 
   // Existing implementations end
 
@@ -66,22 +61,36 @@ const GroupMembers = ({ membersStagging, findAll, search }) => {
         }))
       : [];
 
+  const clickHandler = (e) => {
+    if (e?.item?.id === "StagingMembersGrid_add") {
+      setDrawer(true);
+    }
+  };
+
   return (
     <GridComponent
       dataSource={dataSource}
+      id="StagingMembersGrid"
       width="auto"
       allowPaging
       allowSorting
+      allowMultiSorting
       pageSettings={{ pageCount: 5 }}
       editSettings={editing}
+      toolbarClick={clickHandler}
       toolbar={toolbarOptions}
     >
+      {drawer && (
+        <Drawer title="New Member">
+          <MemberForm />
+        </Drawer>
+      )}
       <ColumnsDirective>
         {membersHeader.map((item, index) => (
           <ColumnDirective key={index} {...item} />
         ))}
       </ColumnsDirective>
-      <Inject services={[Search, Page]} />
+        <Inject services={[Search, Page, Toolbar]} />
     </GridComponent>
   );
 };
